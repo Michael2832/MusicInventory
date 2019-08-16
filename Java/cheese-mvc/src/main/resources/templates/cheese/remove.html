@@ -6,6 +6,13 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<form method="post">
+    <div th: each="cheese:$(cheeses)">
+        <input type="checkbox" name="cheese" th:value="$(cheese.key)"/>
+        <label th:for="$(cheese.key)" th:text="$(cheese.key)"></label>
+    </div>
+    <input type="submit" value="Remove cheeses" />
+</form>
 
 
 </body>
