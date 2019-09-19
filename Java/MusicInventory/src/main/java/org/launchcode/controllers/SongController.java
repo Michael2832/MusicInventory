@@ -2,6 +2,8 @@ package org.launchcode.controllers;
 
 import org.launchcode.models.Category;
 import org.launchcode.models.Cheese;
+import org.launchcode.models.FileType;
+import org.launchcode.models.data.FileTypeDao ;
 import org.launchcode.models.data.CategoryDao ;
 import org.launchcode.models.data.CheeseDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +30,15 @@ public class SongController {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Autowired
+    private FileTypeDao fileTypeDao;
+
     // Request path: /song
     @RequestMapping(value = "")
     public String index(Model model) {
 
         model.addAttribute("cheeses", cheeseDao.findAll());
-        model.addAttribute("title", "My Cheeses");
+        model.addAttribute("title", "My Songs");
         return "song/index";
     }
 
@@ -45,13 +50,17 @@ public class SongController {
 
         //Modify category
         model.addAttribute("categories", categoryDao.findAll() );
+
+        model.addAttribute("fileType", fileTypeDao.findAll()) ;
         return "song/add";
+
+
     }
 
 //modify creates new song based on updates
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddCheeseForm(Model model, @ModelAttribute @Valid Cheese newCheese,
-                                       @RequestParam Integer categoryId,
+                                       @RequestParam Integer categoryId, Integer fileTypeId,
                                        Errors errors) {
 
         if (errors.hasErrors()) {
@@ -62,6 +71,9 @@ public class SongController {
 //Gets ID fron data layer
         Category cat = categoryDao.findOne(categoryId);
         newCheese.setCategory(cat);
+
+        FileType ft = fileTypeDao.findOne(fileTypeId);
+        newCheese.setFileType(ft);
 
         cheeseDao.save(newCheese);
         return "redirect:";

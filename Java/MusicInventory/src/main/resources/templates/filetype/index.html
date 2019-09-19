@@ -6,16 +6,16 @@
 <h1 th:text="${title}"></h1>
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${category} and ${category.size()}">No Genres Yet</p>
+<p th:unless="${fileType} and ${fileType.size()}">No FileTypes Yet</p>
 
-<div th:if="${category.size() != 0}">
+<div th:if="${fileType.size() != 0}">
     <ul>
-        <li th:each="item : ${category}" th:text="${item.category}"></li>
+        <li th:each="item : ${fileType}" th:text="${item.fileType}"></li>
     </ul>
 </div>
 
 <p>
-    <a href="/category/add">Add Genres</a>
+    <a href="/category/add">Add FileType</a>
 </p>
 
 </body>

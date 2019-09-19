@@ -1,7 +1,7 @@
 package org.launchcode.controllers;
 
-import org.launchcode.models.Category ;
-import org.launchcode.models.data.CategoryDao;
+import org.launchcode.models.FileType;
+import org.launchcode.models.data.FileTypeDao ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,37 +12,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 
+
 @Controller
-@RequestMapping("category")
-public class CategoryController {
+@RequestMapping("filetype")
+public class FileTypeController {
 
     @Autowired
-    private CategoryDao categoryDao;
+    private FileTypeDao fileTypeDao;
 
     @RequestMapping(value = "")
     public String index(Model model) {
-        model.addAttribute("category", categoryDao.findAll());
-        model.addAttribute("title", "Categories");
+        model.addAttribute("fileType", fileTypeDao.findAll());
+        model.addAttribute("title", "FileType");
 
-        return "category/index";
+        return "filetype/index";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddCategoryForm(Model model) {
-        model.addAttribute("title", "Add Category");
-        model.addAttribute(new Category());
-        return "category/add";
+    public String displayAddFileTypeForm(Model model) {
+        model.addAttribute("title", "Add FileType");
+        model.addAttribute(new FileType());
+        return "filetype/add";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
-    public String processAddCategoryForm(Model model, @ModelAttribute @Valid Category category, Errors errors) {
+    public String processAddFileTypeForm(Model model, @ModelAttribute @Valid FileType fileType, Errors errors) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Category");
-            return "category/add";
+            model.addAttribute("title", "Add FileType");
+            return "filetype/add";
         }
 
-        categoryDao.save(category);
+        fileTypeDao.save(fileType);
         return "redirect:";
     }
 }

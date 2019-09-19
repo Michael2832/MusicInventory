@@ -28,6 +28,9 @@ public class Cheese {
     @ManyToOne
     private Category category;
 
+    @ManyToOne
+    private FileType fileType;
+
 //Set Up Cheese many to many
     @ManyToMany(mappedBy = "cheeses")
     private List<Menu> menus;
@@ -66,4 +69,8 @@ public class Cheese {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public FileType getFileType() { return fileType; }
+
+    public void setFileType(FileType fileType) { this.fileType = fileType; }
 }
