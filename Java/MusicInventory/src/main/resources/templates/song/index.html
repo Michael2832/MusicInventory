@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<p th:unless="${cheeses} and ${cheeses.size()}">You Have No Songs :(</p>
+
+<table class="table" th:if="${cheeses.size() != 0}">
+
+    <tr>
+        <th>Song</th>
+        <th>Artist</th>
+        <th>Genres</th>
+    </tr>
+
+    <tr th:each="cheese : ${cheeses}">
+        <td th:text="${cheese.name}"></td>
+        <td th:text="${cheese.description}"></td>
+        <td th:text="${cheese.category.name}"></td>
+
+    </tr>
+
+</table>
+
+<p>
+    <a href="/song/add">Add Song</a> |
+    <a href="/song/remove">Remove Song</a>
+</p>
+
+</body>
+</html>
